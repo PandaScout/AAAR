@@ -10,14 +10,15 @@ public:
 void setMotors();
 void fMax();
 void rMax();
+void Stop();
 	
 	
 	
 private:
 int leftMotor = 1;
 int rightMotor = 5;
-int rightSpeed = 48;
-int leftSpeed = 48;
+int rightSpeed;
+int leftSpeed;
 
 };
 
@@ -29,6 +30,11 @@ leftSpeed=31;
 void robot::rMax(){
 rightSpeed=31;
 leftSpeed=59;
+}
+
+void robot::Stop(){
+rightSpeed=48;
+leftSpeed=48;
 }
 
 void robot::setMotors(){
