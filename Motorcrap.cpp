@@ -1,4 +1,35 @@
 #include "E101.h"
+//left motor might be...reverse=30, stationary=48, 50= forward
+//right motor would be opposite
+ 
+class robot{	
+
+public:
+void setMotors();
+
+	
+	
+	
+private:
+int leftMotor = 1;
+int rightMotor = 5;
+int rightSpeed = 48;
+int leftSpeed = 48;
+
+};
+
+void robot::setMotors(){
+
+set_motors(rightMotor,rightSpeed);
+set_motors(leftMotor,leftSpeed);
+hardware_exchange();
+}
+
+
+
+//old
+
+#include "E101.h"
  
 double motors{
 
