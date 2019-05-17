@@ -16,4 +16,6 @@ double Rmax=-1;
 		else if(vel<0 && vel<=-1){vel+=0.2;}
 	return(vel);
 	}
+int set_motors(num_mot,vel);
+int hardware_exchange();
 }
