@@ -1,12 +1,24 @@
+#include <stdio.h>
 #include "E101.h"
+#include <unistd.h>
+#include <time.h>
+#include <math.h>
+#include <fstream>
+#include <iostream>
+//ip address 10.140.84.246
+//raspberry pass
+//pi username
+// scp -r ~/Desktop/Engr101/MainProject/Cpp/* pi@10.140.137.215:~/AVC/
+//SSh ssh pi@10.140.137.215    
+// Compiler g++ -o camera Camera.cpp -le101
+// sudo ./camerarobot
 
-//left motor might be...reverse=31, stationary=48, 59= forward
-//right motor would be opposite
-//camera angle is 180 turns for values between 31 & 59 
 
+//Robot
 class robot{	
 
 public:
+
 void setMotors();
 void fMax();
 void rMax();
@@ -39,33 +51,34 @@ send_to_server(password);
 
 void robot::cameraDown(){
 
-camAngle=35;
+camAngle=30;
 set_motors(camMotor,camAngle);
 hardware_exchange();
 }
 
 void robot::cameraUp(){
 
-camAngle=48;
+camAngle=65;
 set_motors(camMotor,camAngle);
 hardware_exchange();
 }
 
 void robot::fMax(){
 
-rightSpeed= 59;
-leftSpeed=31;
-}
-
-void robot::rMax(){
-
 rightSpeed=31;
 leftSpeed=59;
 }
 
+void robot::rMax(){
+
+rightSpeed= 59;
+leftSpeed=31;
+
+}
+
 void robot::Stop(){
 
-rightSpeed=48;
+rightSpeed=47;
 leftSpeed=48;
 }
 
@@ -74,4 +87,17 @@ void robot::setMotors(){
 set_motors(rightMotor,rightSpeed);
 set_motors(leftMotor,leftSpeed);
 hardware_exchange();
+}
+
+int main(){
+	robot bob;
+	init(0);
+	bob.fMax();
+	bob.setMotors();
+	sleep1(6000);
+	bob.Stop();
+	bob.setMotors();
+	bob.cameraDown();
+	bob.cameraUp();
+	return 0;
 }
