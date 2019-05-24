@@ -4,36 +4,37 @@
 #include <unistd.h>
 int main(){
 
-	int camON;		
-	camON = init();
+	
 	int count = 0;
 	int countRow = 0;
-	int totalR = 0;
-	int totalG = 0;
-	int totalB = 0;
-	int totalW = 0;
+	//int totalR = 0;
+	//int totalG = 0;
+	//int totalB = 0;
+	//int totalW = 0;
 	int countCol= 0;
 	float white[8];
+	int blackpos;
+	int Kval;
 	
-	float redness = 0;
-	float greenness = 0;
-	float blueness = 0;
+	//float redness = 0;
+	//float greenness = 0;
+	//float blueness = 0;
 	open_screen_stream();
 	
 		while(count<10000){
-		select_IO(0,0);
+		
 		
 		take_picture();
 		update_screen();
 		countRow = 200;
-		totalR = 0;
-		totalG = 0;
-		totalB = 0;
-		totalW = 0;
+		//totalR = 0;
+		//totalG = 0;
+		//totalB = 0;
+		//totalW = 0;
 		countCol = 0;
-		redness = 0;
+		//redness = 0;
 		float black = 0;
-		int blackpos;
+		
 		
 	
 			while(countRow<240){
@@ -42,73 +43,65 @@ int main(){
 				while(countCol<315){
 					
 				if(countCol >= 0 && countCol <= 35){
-				white[0] += (int)get_pixel(countRow,countCol,3);
+					white[0] += (int)get_pixel(countRow,countCol,3);
 				}
 				if(countCol > 35 && countCol <= 70){
-				white[1] += (int)get_pixel(countRow,countCol,3);
+					white[1] += (int)get_pixel(countRow,countCol,3);
 				}
 				if(countCol > 70 && countCol <= 105){
-				white[2] += (int)get_pixel(countRow,countCol,3);
+					white[2] += (int)get_pixel(countRow,countCol,3);
 				}
 				if(countCol > 105 && countCol <= 140){
-				white[3] += (int)get_pixel(countRow,countCol,3);
+					white[3] += (int)get_pixel(countRow,countCol,3);
 				}
 				if(countCol > 140 && countCol <= 175){
-				white[4] += (int)get_pixel(countRow,countCol,3);
+					white[4] += (int)get_pixel(countRow,countCol,3);
 				}
 				if(countCol > 175 && countCol <= 210){
-				white[5] += (int)get_pixel(countRow,countCol,3);
+					white[5] += (int)get_pixel(countRow,countCol,3);
 				}
 				if(countCol > 210 && countCol <= 245){
-				white[6] += (int)get_pixel(countRow,countCol,3);
+					white[6] += (int)get_pixel(countRow,countCol,3);
 				}
 				if(countCol > 245 && countCol <= 280){
-				white[7] += (int)get_pixel(countRow,countCol,3);
+					white[7] += (int)get_pixel(countRow,countCol,3);
 				}
 				if(countCol > 280 && countCol <= 315){
-				white[8] += (int)get_pixel(countRow,countCol,3);
+					white[8] += (int)get_pixel(countRow,countCol,3);
 				}
 				
 				
-				totalR = totalR + (int)get_pixel(countRow,countCol,0);
-				totalG = totalG + (int)get_pixel(countRow,countCol,1);
-				totalB = totalB + (int)get_pixel(countRow,countCol,2);
+				//totalR = totalR + (int)get_pixel(countRow,countCol,0);
+				//totalG = totalG + (int)get_pixel(countRow,countCol,1);
+				//totalB = totalB + (int)get_pixel(countRow,countCol,2);
 				
 				
-				redness = (float)totalR/(3.0*(float)totalW);
-				greenness = (float)totalG/(3.0*(float)totalW);
-				blueness = (float)totalB/(3.0*(float)totalW);
+				//redness = (float)totalR/(3.0*(float)totalW);
+				//greenness = (float)totalG/(3.0*(float)totalW);
+				//blueness = (float)totalB/(3.0*(float)totalW);
 				countCol++;
 				
 			}
 			countRow++;
 		}
-		for(int whiteCount=0; whiteCount<=8; WhiteCount++){
-		black=white[0];
-		if(	white[whiteCount] < black){
-		black =	white[whiteCount];
+		for(int arraySlot=0; arraySlot<=8; arraySlot++){
+			black=white[0];
+			if(	white[arraySlot] < black){
+				black =	white[arraySlot];
+			}
 		}
-		}#include "E101.h"
 
-		for(int whiteCount=0; whiteCount<=8; WhiteCount++){
-		if(	white[whiteCount] = black){
-		blackpos= whiteCount;
+		for(int arraySlot=0; arraySlot<=8; arraySlot++){
+			if(	white[arraySlot] == black){
+			blackpos= arraySlot;
+			}
 		}
-		}
+		kVal = (-4+blackpos);
 		
 		}	
-		printf("ruby present\n");
-		printf("redness is %f\n",redness);	
-		printf("greenness is %f\n",greenness);
-		printf("blueness is %f\n",blueness);	
-		sleep1(0,50000);
 		count++;
 		
-		}	
+			
 	
 	close_screen_stream();
-	printf("After init() error = %d\n",camON);
-	printf("Again\n");
-	
 } 
-}
