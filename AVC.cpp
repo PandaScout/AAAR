@@ -26,6 +26,7 @@ void Stop();
 void getGate();
 void cameraDown();
 void cameraUp();
+void Q2();
 
 	
 private:
@@ -33,8 +34,10 @@ int leftMotor = 1;
 int rightMotor = 5;
 int rightSpeed;
 int leftSpeed;
+int neutral= 48;
 int camMotor = 3;
 int camAngle;
+
 
 
 };
@@ -76,6 +79,53 @@ leftSpeed=31;
 
 }
 
+void robot::Q2(){
+//put this while loop around Q2 when you call it
+	float kVal;
+	int countCol;
+	int blackCountpos;
+	int count=0;
+	int black[320];
+	int lineStart;
+	int lineCenter;
+	int error;
+	
+	while(count<10000){
+		
+		
+		take_picture();
+		countCol = 0;
+		blackCountpos=0;
+		while(countCol<320){
+			
+			black[countCol] = (int)get_pixel(120,countCol,3);
+			
+			if(	black[countCol] < 100){
+				black[countCol]=1;
+			}
+			else{ black[countCol]=0;}
+			
+			countCol++;
+		}
+
+		for(int col=0;col<320;col++){
+			if(black[col] == 1){
+				blackCountpos++;
+			}
+			if(blackCountpos == 1){
+				lineStart = col; 
+			}
+		}
+		//sees line. if it doesnt see line, does weird shit.
+		//need to set up how error effects wheel speeds
+		lineCenter = lineStart+blackCountpos/2;
+		error = 160-lineCenter;
+		printf("%d\n",error);
+		count++;
+	}
+		
+}
+
 void robot::Stop(){
 
 rightSpeed=47;
@@ -92,6 +142,7 @@ hardware_exchange();
 int main(){
 	robot bob;
 	init(0);
+	bob.Q2();
 	bob.fMax();
 	bob.setMotors();
 	sleep1(6000);
@@ -99,5 +150,6 @@ int main(){
 	bob.setMotors();
 	bob.cameraDown();
 	bob.cameraUp();
+	bob.cameraDown();
 	return 0;
 }
