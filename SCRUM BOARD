@@ -1,19 +1,15 @@
 //Doing:
->physical construction
 >camera feed
->camera angling
-
-
-//Need Assist:
-
+>line following/Q2
+>path finding/Q3
 
 //To Do:
->line following
->path finding
->marker tracking
+>marker tracking/Q4
 
 
 //Done:
->gate code
+>gate code/Q1
 >chassis
->motor controls
+>motor controls/Q1
+>physical construction
+>camera angling
