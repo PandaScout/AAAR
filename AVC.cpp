@@ -128,6 +128,10 @@ void robot::Q2(){
 		error = 160-lineCenter;
 		printf("%d\n",error);
 		count++;
+	//motor controls here:
+	//set_motors(rightMotor,rightSpeed);
+	//set_motors(leftMotor,leftSpeed);
+	//hardware_exchange();
 	}
 		
 }
