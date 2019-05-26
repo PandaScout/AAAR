@@ -78,14 +78,20 @@ rightSpeed= 59;
 leftSpeed=31;
 
 }
-
+//Quadrant 2
 void robot::Q2(){
 //put this while loop around Q2 when you call it
-	float kVal;
+	
 	int countCol;
-	int blackCountpos;
+	
 	int count=0;
+	
+	//array of pixels along 120 y axis to find black
 	int black[320];
+	
+	//gets array possision of black pixels
+	int blackCountpos;
+	
 	int lineStart;
 	int lineCenter;
 	int error;
