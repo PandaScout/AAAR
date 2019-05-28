@@ -11,11 +11,7 @@
 
 void robot::Q4(){
 	//Code for camera will be here to find the redness, greenness and blueness.
-	select_IO(0, 0);
-	open_screen_stream();
 	take_picture();
-	sleep1(0, 40000);
-	update_screen();
 	x = 0;
 	y = 0;
 	totred = 0;
@@ -25,10 +21,14 @@ void robot::Q4(){
 	redness = 0;
 	greenness = 0;
 	blueness = 0;
+	Boolean red = true;
+	Boolean green = true;
+	Boolean blue = true;
+	
 		
-	for(x = 0; x < 240; x++)
+	for(x = 0; x < 320; x++)
 	{
-		for(y = 0; y < 320; y++) 
+		for(y = 0; y < 240; y++) 
 		{
 			totred = totred + (int)get_pixel(x, y,0);
 			totgreen = totgreen + (int)get_pixel(x, y,1);
@@ -42,21 +42,29 @@ void robot::Q4(){
 
 	
 	//Need to look at my code for red ruby
-	while(reddness < x) { //x is a set value gain from the camera
-		rightspeed = 59;
-		leftspeed = 47;
+	if (red == true){
+		if(redness < x) { //x is a set value gain from the camera
+			rightspeed = 59;
+			leftspeed = 47;
+		}
+		sleep(1000);
+		if(redness < y){
+			rightSpeed=31;
+			leftSpeed=59; //robot::fMax
+		}
+		
 	}
 	sleep(1000);
-	while(reddness< y){
-		rightSpeed=31;
-		leftSpeed=59;
-	}
-	sleep(1000);
-	while(greenness < Z){
+	red = false;
+	
+	//while(greenness < Z){
 		
 	
 	//Code to test quadrant 4. need values for X and Y from the real test.
 	}
 }
+
+
+
 
 
