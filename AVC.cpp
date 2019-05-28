@@ -81,8 +81,6 @@ leftSpeed=31;
 }
 //Quadrant 2
 void robot::Q2(){
-//put this while loop around Q2 when you call it
-	
 	int countCol;
 	
 	int count=0;
@@ -90,7 +88,7 @@ void robot::Q2(){
 	//array of pixels along 120 y axis to find black
 	int black[320];
 	
-	//gets array possision of black pixels
+	//gets array position of black pixels
 	int blackCountpos;
 	
 	int lineStart;
@@ -154,14 +152,10 @@ hardware_exchange();
 int main(){
 	robot bob;
 	init(0);
-	bob.cameraDown();
 	bob.getGate();
 	bob.Q2();
 	bob.Stop();
 	bob.setMotors();
-	bob.cameraDown();
-	bob.cameraUp();
-	bob.cameraDown();
 	return 0;
 }
 
