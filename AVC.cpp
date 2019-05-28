@@ -8,11 +8,12 @@
 //ip address 10.140.84.246
 //raspberry pass
 //pi username
-// scp -r ~/Desktop/Engr101/MainProject/Cpp/* pi@10.140.137.215:~/AVC/
-//SSh ssh pi@10.140.137.215    
-// Compiler g++ -o camera Camera.cpp -le101
-// sudo ./camerarobot
-
+// scp -r ~/Desktop/AVC/* pi@10.140.84.246:~/AVC/
+// ssh pi@10.140.84.246 
+// cd AVC   
+// g++ -o AVC AVC.cpp -le101
+// sudo ./AVC
+//edit = nano AVC.cpp
 
 //Robot
 class robot{	
@@ -37,7 +38,7 @@ int leftSpeed;
 int neutral= 48;
 int camMotor = 3;
 int camAngle;
-
+float kp=0.02;
 
 
 };
@@ -54,7 +55,7 @@ send_to_server(password);
 
 void robot::cameraDown(){
 
-camAngle=30;
+camAngle=28;
 set_motors(camMotor,camAngle);
 hardware_exchange();
 }
@@ -96,7 +97,7 @@ void robot::Q2(){
 	int lineCenter;
 	int error;
 	
-	while(count<10000){
+	while(count<1500){
 		
 		
 		take_picture();
@@ -126,12 +127,13 @@ void robot::Q2(){
 		//need to set up how error effects wheel speeds
 		lineCenter = lineStart+blackCountpos/2;
 		error = 160-lineCenter;
+		printf("%.3f\n",error*kp);
 		printf("%d\n",error);
 		count++;
-		//motor controls here:
-		//set_motors(rightMotor,rightSpeed+(error/2));
-		//set_motors(leftMotor,leftSpeed-(error/2));
-		//hardware_exchange();
+		
+		set_motors(rightMotor,43-(error*kp));
+		set_motors(leftMotor,53-(error*kp));
+		hardware_exchange();
 	}
 		
 }
@@ -152,10 +154,9 @@ hardware_exchange();
 int main(){
 	robot bob;
 	init(0);
+	bob.cameraDown();
+	bob.getGate();
 	bob.Q2();
-	bob.fMax();
-	bob.setMotors();
-	sleep1(6000);
 	bob.Stop();
 	bob.setMotors();
 	bob.cameraDown();
@@ -163,3 +164,4 @@ int main(){
 	bob.cameraDown();
 	return 0;
 }
+
