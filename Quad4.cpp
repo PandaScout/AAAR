@@ -22,8 +22,8 @@ void robot::Q4(){
 	greenness = 0;
 	blueness = 0;
 	Boolean red = true;
-	Boolean green = true;
-	Boolean blue = true;
+	Boolean green = false;
+	Boolean blue = false;
 	
 		
 	for(x = 0; x < 320; x++)
@@ -55,6 +55,7 @@ void robot::Q4(){
 		sleep(1000);
 		if ( redness > z){
 			red = false;
+			green = true;
 		}
 	}
 	
