@@ -40,7 +40,21 @@ void robot::Q4(){
 		}
 	}
 
-	
+	//Open file in write mode
+			std::ofstream outfile;
+			outfile.open("test.txt", std::ofstream::out | std::ofstream::app);
+
+			//Write to file
+			outfile << redness << "red" <<std::endl;
+			outfile << greenness << "green"<< std::endl;
+			outfile << blueness  << "blue" << std::endl;
+			//Close file
+			outfile.close();
+			printf("	\n");
+			printf("Total red %d\n", redness);
+			printf("Total green %d\n", greenness);
+			printf("Total blue %d\n", blueness);
+			printf(" \n");
 	//Need to look at my code for red ruby
 	while (red == true){
 		if(redness < x) { //x is a set value gain from the camera
@@ -65,8 +79,7 @@ void robot::Q4(){
 	
 	//Code to test quadrant 4. need values for X and Y from the real test.
 	}
-}
-
+	
 
 
 
