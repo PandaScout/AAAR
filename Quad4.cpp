@@ -75,8 +75,8 @@ void robot::Q4(){
 	}
 	while (green == true){
 		if(greenness < 0.444) { //x is a set value gain from the camera
-			rightspeed = 59;
-			leftspeed = 47;
+			rightspeed = 47;
+			leftspeed = 59;
 		}
 		sleep(1000);
 		if(greenness < 0.888){
@@ -107,8 +107,8 @@ void robot::Q4(){
 	}
 	while (end == true){
 		if(redness < 0.444 && greenness < 0.4) { //x is a set value gain from the camera
-			rightspeed = 59;
-			leftspeed = 47;
+			rightspeed = 47;
+			leftspeed = 59;
 		}
 		sleep(1000);
 		if(redeness < 0.888 && greenness < 0.4){
