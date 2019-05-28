@@ -38,7 +38,7 @@ int leftSpeed;
 int neutral= 48;
 int camMotor = 3;
 int camAngle;
-float kp=0.02;
+float kp=0.03;
 
 
 };
