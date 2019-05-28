@@ -42,7 +42,7 @@ void robot::Q4(){
 
 	
 	//Need to look at my code for red ruby
-	if (red == true){
+	while (red == true){
 		if(redness < x) { //x is a set value gain from the camera
 			rightspeed = 59;
 			leftspeed = 47;
@@ -52,10 +52,12 @@ void robot::Q4(){
 			rightSpeed=31;
 			leftSpeed=59; //robot::fMax
 		}
-		
+		sleep(1000);
+		if ( redness > z){
+			red = false;
+		}
 	}
-	sleep(1000);
-	red = false;
+	
 	
 	//while(greenness < Z){
 		
