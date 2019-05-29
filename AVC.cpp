@@ -6,8 +6,9 @@
 #include <fstream>
 #include <iostream>
 //ip address 10.140.84.246
-//raspberry pass
-//pi username
+//password = raspberry 
+//pi username = pi
+
 // scp -r ~/Desktop/AVC/* pi@10.140.84.246:~/AVC/
 // ssh pi@10.140.84.246 
 // cd AVC   
@@ -28,7 +29,7 @@ void getGate();
 void cameraDown();
 void cameraUp();
 void Q2();
-
+void Q3();
 	
 private:
 int leftMotor = 1;
@@ -95,7 +96,7 @@ void robot::Q2(){
 	int lineCenter;
 	int error;
 	
-	while(count<1500){
+	while(count<1300){
 		
 		
 		take_picture();
@@ -136,6 +137,62 @@ void robot::Q2(){
 		
 }
 
+void robot::Q3(){
+	int countCol;
+	
+	int count=0;
+	
+	//array of pixels along 120 y axis to find black
+	int black[320];
+	
+	//gets array position of black pixels
+	int blackCountpos;
+	
+	int lineStart;
+	int lineCenter;
+	int error;
+	
+	while(count<1000){
+		
+		
+		take_picture();
+		countCol = 0;
+		blackCountpos=0;
+		while(countCol<320){
+			
+			black[countCol] = (int)get_pixel(120,countCol,3);
+			
+			if(	black[countCol] < 100){
+				black[countCol]=1;
+			}
+			else{ black[countCol]=0;}
+			
+			countCol++;
+		}
+
+		for(int col=0;col<320;col++){
+			if(black[col] == 1){
+				blackCountpos++;
+			}
+			if(blackCountpos == 1){
+				lineStart = col; 
+			}
+		}
+		//sees line. if it doesnt see line, does weird shit.
+		//need to set up how error effects wheel speeds
+		lineCenter = lineStart+blackCountpos/2;
+		error = 160-lineCenter;
+		printf("%.3f\n",error*kp);
+		printf("%d\n",error);
+		count++;
+		/** do an if statment for if we see 0.000, kick left else run as normal */
+		set_motors(rightMotor,44-(error*kp));
+		set_motors(leftMotor,52-(error*kp));
+		hardware_exchange();
+	}
+		
+}
+
 void robot::Stop(){
 
 rightSpeed=47;
@@ -154,6 +211,7 @@ int main(){
 	init(0);
 	bob.getGate();
 	bob.Q2();
+	bob.Q3();
 	bob.Stop();
 	bob.setMotors();
 	return 0;
