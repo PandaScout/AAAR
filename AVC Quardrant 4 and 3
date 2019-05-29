@@ -1,0 +1,353 @@
+// C++ hopefuly
+#include <stdio.h>
+#include "E101.h"
+#include <unistd.h>
+#include <time.h>
+#include <math.h>
+#include <fstream>
+#include <iostream>
+
+//rotation of robot. right: 59, 59
+
+#include <stdio.h>
+#include "E101.h"
+#include <unistd.h>
+#include <time.h>
+#include <math.h>
+#include <fstream>
+#include <iostream>
+//ip address 10.140.84.246
+//raspberry pass
+//pi username
+// scp -r ~/Desktop/AVC/* pi@10.140.84.246:~/AVC/
+// ssh pi@10.140.84.246 
+// cd AVC   
+// g++ -o AVC AVC.cpp -le101
+// sudo ./AVC
+//edit = nano AVC.cpp
+
+//Robot
+class robot{	
+
+public:
+
+void setMotors();
+void fMax();
+void rMax();
+void Stop();
+void getGate();
+void cameraDown();
+void cameraUp();
+void Q2();
+void Q3();
+	
+private:
+int leftMotor = 1;
+int rightMotor = 5;
+int rightSpeed;
+int leftSpeed;
+int neutral= 48;
+int camMotor = 3;
+int camAngle;
+float kp=0.02;
+
+
+};
+void robot::getGate(){
+
+char ip[15]="130.195.6.196";
+connect_to_server(ip, 1024);
+char message[15]="Please";
+send_to_server(message);
+char password[24];
+receive_from_server(password);
+send_to_server(password);
+}
+
+void robot::cameraDown(){
+
+camAngle=28;
+set_motors(camMotor,camAngle);
+hardware_exchange();
+}
+
+void robot::cameraUp(){
+
+camAngle=65;
+set_motors(camMotor,camAngle);
+hardware_exchange();
+}
+
+void robot::fMax(){
+
+rightSpeed=31;
+leftSpeed=59;
+}
+
+void robot::rMax(){
+
+rightSpeed= 59;
+leftSpeed=31;
+
+}
+//Quadrant 2
+void robot::Q2(){
+	int countCol;
+	
+	int count=0;
+	
+	//array of pixels along 120 y axis to find black
+	int black[320];
+	
+	//gets array position of black pixels
+	int blackCountpos;
+	
+	int lineStart;
+	int lineCenter;
+	int error;
+	
+	while(count<1500){
+		
+		
+		take_picture();
+		countCol = 0;
+		blackCountpos=0;
+		while(countCol<320){
+			
+			black[countCol] = (int)get_pixel(120,countCol,3);
+			
+			if(	black[countCol] < 100){
+				black[countCol]=1;
+			}
+			else{ black[countCol]=0;}
+			
+			countCol++;
+		}
+
+		for(int col=0;col<320;col++){
+			if(black[col] == 1){
+				blackCountpos++;
+			}
+			if(blackCountpos == 1){
+				lineStart = col; 
+			}
+		}
+		//sees line. if it doesnt see line, does weird shit.
+		//need to set up how error effects wheel speeds
+		lineCenter = lineStart+blackCountpos/2;
+		error = 160-lineCenter;
+		printf("%.3f\n",error*kp);
+		printf("%d\n",error);
+		count++;
+		
+		set_motors(rightMotor,43-(error*kp));
+		set_motors(leftMotor,53-(error*kp));
+		hardware_exchange();
+	}
+		
+}
+
+void robot::Q3(){
+	int black[320][240];
+	int totblack1 = 0;
+	int totblack2 = 0;
+	int totblack3 = 0;
+	int countc = 0;
+	int countr = 0;
+	int count = 0;
+
+	while(count < 1500){
+		take_picture();
+		while (countr < 240){
+			countc = 0;
+
+			while (countc < 106){
+
+					black[countr][countc]=(int)get_pixel(countr,countc,3);
+					if(	black[countr][countc] < 100){
+					black[countr][countc]=1;
+					}
+					else{ black[countr][countc]=0;}
+					countc++;
+				}
+				countr++;
+			}
+
+		}
+		countr = 0;
+		while (countr <100){
+
+			int countc = 106;
+			while (countc < 213){
+
+					black[countr][countc]=(int)get_pixel(countr,countc,3);
+					black[countr][countc]=(int)get_pixel(countr,countc,3);
+					if(	black[countr][countc] < 100){
+					black[countr][countc]=1;
+					}
+					else{ black[countr][countc]=0;}
+					countc++;
+			}
+		countr++;
+	}
+
+		countr = 0;
+		while (countr < 240){
+			countc = 213;
+
+			while (countc <320){
+
+					black[countr][countc]=(int)get_pixel(countr,countc,3);
+					black[countr][countc]=(int)get_pixel(countr,countc,3);
+					if(	black[countr][countc] < 100){
+					black[countr][countc]=1;
+					}
+					else{ black[countr][countc]=0;}
+					countc++;
+				}
+				countr++;
+			}
+		
+}
+
+void robot::Stop(){
+
+rightSpeed=47;
+leftSpeed=48;
+}
+
+void robot::setMotors(){
+
+set_motors(rightMotor,rightSpeed);
+set_motors(leftMotor,leftSpeed);
+hardware_exchange();
+}
+
+
+
+void robot::Q4(){
+	//Code for camera will be here to find the redness, greenness and blueness.
+	take_picture();
+	x = 0;
+	y = 0;
+	totred = 0;
+	totgreen = 0;
+	totblue = 0;
+	totint = 0;
+	redness = 0;
+	greenness = 0;
+	blueness = 0;
+	Boolean red = true;
+	Boolean green = false;
+	Boolean blue = false;
+	Boolean end = false
+	
+		
+	for(x = 0; x < 320; x++)
+	{
+		for(y = 0; y < 240; y++) 
+		{
+			totred = totred + (int)get_pixel(x, y,0);
+			totgreen = totgreen + (int)get_pixel(x, y,1);
+			totblue = totblue + (int)get_pixel(x, y,2);
+			totint = totint + (int)get_pixel(x, y,3);
+			redness = (float)totred/3.0*(float)totint;
+			greenness = (float)totgreen/3.0*(float)totint;
+			blueness = (float)totblue/3.0*(float)totint; 
+		}
+	}
+
+	//Open file in write mode
+			std::ofstream outfile;
+			outfile.open("test.txt", std::ofstream::out | std::ofstream::app);
+
+			//Write to file
+			outfile << redness << "red" <<std::endl;
+			outfile << greenness << "green"<< std::endl;
+			outfile << blueness  << "blue" << std::endl;
+			//Close file
+			outfile.close();
+			printf("	\n");
+			printf("Total red %d\n", redness);
+			printf("Total green %d\n", greenness);
+			printf("Total blue %d\n", blueness);
+			printf(" \n");
+	//Need to look at my code for red ruby
+	while (red == true){
+		if(redness < 0.444) { //x is a set value gain from the camera
+			rightspeed = 59;
+			leftspeed = 47;
+		}
+		sleep(1000);
+		if(redness < 0.888){
+			rightSpeed=31;
+			leftSpeed=59; //robot::fMax
+		}
+		sleep(1000);
+		if ( redness > 1.5){
+			red = false;
+			green = true;
+		}
+	}
+	while (green == true){
+		if(greenness < 0.444) { //x is a set value gain from the camera
+			rightspeed = 47;
+			leftspeed = 59;
+		}
+		sleep(1000);
+		if(greenness < 0.888){
+			rightSpeed=31;
+			leftSpeed=59; //robot::fMax
+		}
+		sleep(1000);
+		if (greenness > 1.5){
+			green = false;
+			blue = true;
+		}
+	}
+	while (blue == true){
+		if(blueness < 0.444) { //x is a set value gain from the camera
+			rightspeed = 59;
+			leftspeed = 47;
+		}
+		sleep(1000);
+		if(blueness < 0.888){
+			rightSpeed=31;
+			leftSpeed=59; //robot::fMax
+		}
+		sleep(1000);
+		if (blueness > 1.5){
+			blue = false;
+			end = true;
+		}
+	}
+	while (end == true){
+		if(redness < 0.444 && greenness < 0.4) { //x is a set value gain from the camera
+			rightspeed = 47;
+			leftspeed = 59;
+		}
+		sleep(1000);
+		if(redeness < 0.888 && greenness < 0.4){
+			rightSpeed=31;
+			leftSpeed=59; //robot::fMax
+		}
+		sleep(1000);
+		if (redness > 1.5 && greenness < 0.4){
+			blue = false;
+			end = true;
+			sleep(1000);
+		}
+	}
+	stop();
+	//Code to test quadrant 4. need values for X and Y from the real test.
+	
+	int main(){
+	robot bob;
+	init(0);
+	bob.Q3();
+	bob.getGate();
+	bob.Q4();
+	bob.Stop();
+	bob.setMotors();
+	return 0;
+}
