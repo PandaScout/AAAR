@@ -39,7 +39,7 @@ int leftSpeed;
 int neutral= 48;
 int camMotor = 3;
 int camAngle;
-float kp=0.02;
+float kp=0.03;
 
 
 };
@@ -186,8 +186,8 @@ void robot::Q3(){
 		printf("%d\n",error);
 		count++;
 		
-		set_motors(rightMotor,46-(error*kp));
-		set_motors(leftMotor,45-(error*kp));
+		set_motors(rightMotor,44-(error*kp));
+		set_motors(leftMotor,52-(error*kp));
 		hardware_exchange();
 	}
 		
