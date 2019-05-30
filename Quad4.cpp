@@ -56,15 +56,16 @@ void robot::Q4(){
 			printf("Total green %d\n", greenness);
 			printf("Total blue %d\n", blueness);
 			printf(" \n");
-	//Need to look at my code for red ruby
+	
 	while (red == true){
 		if(greenness < 0.444 && blueness < 0.444) { //x is a set value gain from the camera
-			rightspeed = 59;
-			leftspeed = 47;
+			rightspeed = 47;
+			leftspeed = 59;  //Right turn
 		}
 		sleep(1000);
 		else if (greenness > 0.544 && blueness > 0.544){
-			
+			rightspeed = 59;
+			leftspeed = 47; //left turn
 		}
 		else {
 			rightSpeed=31;
@@ -82,9 +83,13 @@ void robot::Q4(){
 			leftspeed = 59;
 		}
 		sleep(1000);
-		if(redness > 0.444 && blueness > 0.444){
+		else if(redness > 0.544 && blueness > 0.544){
+			rightSpeed=59;
+			leftSpeed=47; //robot::fMax
+		}
+		else{
 			rightSpeed=31;
-			leftSpeed=59; //robot::fMax
+			leftSpeed=59;
 		}
 		sleep(1000);
 		if (redness > 0.444 && blueness > 0.444){
@@ -98,10 +103,14 @@ void robot::Q4(){
 			leftspeed = 47;
 		}
 		sleep(1000);
-		if(redness > 0.444 && greenness > 0.444){
-			rightSpeed=31;
-			leftSpeed=59; //robot::fMax
+		else if(redness > 0.544 && greenness > 0.544){
+			rightSpeed=47;
+			leftSpeed=59; 
 		}
+		else{
+			rightSpeed=31;
+			leftSpeed=59;
+		} 
 		sleep(1000);
 		if (redness > 0.444 && greenness > 0.444){
 			blue = false;
