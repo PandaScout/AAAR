@@ -7,7 +7,9 @@
 #include <fstream>
 #include <iostream>
 
-//rotation of robot. right: 59, 59
+//rotation of robot. right: 47, 59
+//rotation of robot. left: 59,47
+//forward at max speed. 31, 59
 
 void robot::Q4(){
 	//Code for camera will be here to find the redness, greenness and blueness.
