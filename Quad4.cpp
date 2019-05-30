@@ -85,7 +85,7 @@ void robot::Q4(){
 		sleep(1000);
 		else if(redness > 0.544 && blueness > 0.544){
 			rightSpeed=59;
-			leftSpeed=47; //robot::fMax
+			leftSpeed=47; 
 		}
 		else{
 			rightSpeed=31;
@@ -118,14 +118,18 @@ void robot::Q4(){
 		}
 	}
 	while (end == true){ //Ajust later
-		if(redness < 0.444 && greenness < 0.4) { //x is a set value gain from the camera
-			rightspeed = 47;
-			leftspeed = 59;
+		if(blueness > 0.444) { //x is a set value gain from the camera. This will look for blue as yellow is a mix of red and green
+			rightspeed = 59;
+			leftspeed = 47;
 		}
 		sleep(1000);
-		if(redeness < 0.888 && greenness < 0.4){
+		else if(blueness < 0.544){
+			rightSpeed=47;
+			leftSpeed=59; 
+		}
+		else{
 			rightSpeed=31;
-			leftSpeed=59; //robot::fMax
+			leftSpeed=59;
 		}
 		sleep(1000);
 		if (redness > 1.5 && greenness < 0.4){
