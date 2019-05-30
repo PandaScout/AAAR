@@ -226,6 +226,20 @@ hardware_exchange();
 
 
 void robot::Q4(){
+	// C++ hopefuly
+#include <stdio.h>
+#include "E101.h"
+#include <unistd.h>
+#include <time.h>
+#include <math.h>
+#include <fstream>
+#include <iostream>
+
+//rotation of robot. right: 47, 59
+//rotation of robot. left: 59,47
+//forward at max speed. 31, 59
+
+void robot::Q4(){
 	//Code for camera will be here to find the redness, greenness and blueness.
 	take_picture();
 	x = 0;
@@ -272,64 +286,80 @@ void robot::Q4(){
 			printf("Total green %d\n", greenness);
 			printf("Total blue %d\n", blueness);
 			printf(" \n");
-	//Need to look at my code for red ruby
+	
 	while (red == true){
-		if(redness < 0.444) { //x is a set value gain from the camera
-			rightspeed = 59;
-			leftspeed = 47;
+		if(greenness < 0.444 && blueness < 0.444) { //x is a set value gain from the camera
+			rightspeed = 47;
+			leftspeed = 59;  //Right turn
 		}
 		sleep(1000);
-		if(redness < 0.888){
+		else if (greenness > 0.544 && blueness > 0.544){
+			rightspeed = 59;
+			leftspeed = 47; //left turn
+		}
+		else {
 			rightSpeed=31;
 			leftSpeed=59; //robot::fMax
 		}
 		sleep(1000);
-		if ( redness > 1.5){
+		if ( greenness < 0.444 && blueness < 0.444){ //Values will be figure out with testing
 			red = false;
 			green = true;
 		}
 	}
 	while (green == true){
-		if(greenness < 0.444) { //x is a set value gain from the camera
+		if(redness < 0.444 && blueness < 0.444) { //x is a set value gain from the camera
 			rightspeed = 47;
 			leftspeed = 59;
 		}
 		sleep(1000);
-		if(greenness < 0.888){
+		else if(redness > 0.544 && blueness > 0.544){
+			rightSpeed=59;
+			leftSpeed=47; 
+		}
+		else{
 			rightSpeed=31;
-			leftSpeed=59; //robot::fMax
+			leftSpeed=59;
 		}
 		sleep(1000);
-		if (greenness > 1.5){
+		if (redness > 0.444 && blueness > 0.444){
 			green = false;
 			blue = true;
 		}
 	}
 	while (blue == true){
-		if(blueness < 0.444) { //x is a set value gain from the camera
+		if(redness < 0.444 && greenness < 0.444) { //x is a set value gain from the camera
 			rightspeed = 59;
 			leftspeed = 47;
 		}
 		sleep(1000);
-		if(blueness < 0.888){
-			rightSpeed=31;
-			leftSpeed=59; //robot::fMax
+		else if(redness > 0.544 && greenness > 0.544){
+			rightSpeed=47;
+			leftSpeed=59; 
 		}
+		else{
+			rightSpeed=31;
+			leftSpeed=59;
+		} 
 		sleep(1000);
-		if (blueness > 1.5){
+		if (redness > 0.444 && greenness > 0.444){
 			blue = false;
 			end = true;
 		}
 	}
-	while (end == true){
-		if(redness < 0.444 && greenness < 0.4) { //x is a set value gain from the camera
-			rightspeed = 47;
-			leftspeed = 59;
+	while (end == true){ //Ajust later
+		if(blueness > 0.444) { //x is a set value gain from the camera. This will look for blue as yellow is a mix of red and green
+			rightspeed = 59;
+			leftspeed = 47;
 		}
 		sleep(1000);
-		if(redeness < 0.888 && greenness < 0.4){
+		else if(blueness < 0.544){
+			rightSpeed=47;
+			leftSpeed=59; 
+		}
+		else{
 			rightSpeed=31;
-			leftSpeed=59; //robot::fMax
+			leftSpeed=59;
 		}
 		sleep(1000);
 		if (redness > 1.5 && greenness < 0.4){
@@ -339,6 +369,12 @@ void robot::Q4(){
 		}
 	}
 	stop();
+	
+	//while(greenness < Z){
+		
+	
+	//Code to test quadrant 4. need values for X and Y from the real test.
+	}
 	//Code to test quadrant 4. need values for X and Y from the real test.
 	
 	int main(){
