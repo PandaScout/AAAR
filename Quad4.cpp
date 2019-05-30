@@ -58,54 +58,57 @@ void robot::Q4(){
 			printf(" \n");
 	//Need to look at my code for red ruby
 	while (red == true){
-		if(redness < 0.444) { //x is a set value gain from the camera
+		if(greenness < 0.444 && blueness < 0.444) { //x is a set value gain from the camera
 			rightspeed = 59;
 			leftspeed = 47;
 		}
 		sleep(1000);
-		if(redness < 0.888){
+		else if (greenness > 0.544 && blueness > 0.544){
+			
+		}
+		else {
 			rightSpeed=31;
 			leftSpeed=59; //robot::fMax
 		}
 		sleep(1000);
-		if ( redness > 1.5){
+		if ( greenness < 0.444 && blueness < 0.444){ //Values will be figure out with testing
 			red = false;
 			green = true;
 		}
 	}
 	while (green == true){
-		if(greenness < 0.444) { //x is a set value gain from the camera
+		if(redness < 0.444 && blueness < 0.444) { //x is a set value gain from the camera
 			rightspeed = 47;
 			leftspeed = 59;
 		}
 		sleep(1000);
-		if(greenness < 0.888){
+		if(redness > 0.444 && blueness > 0.444){
 			rightSpeed=31;
 			leftSpeed=59; //robot::fMax
 		}
 		sleep(1000);
-		if (greenness > 1.5){
+		if (redness > 0.444 && blueness > 0.444){
 			green = false;
 			blue = true;
 		}
 	}
 	while (blue == true){
-		if(blueness < 0.444) { //x is a set value gain from the camera
+		if(redness < 0.444 && greenness < 0.444) { //x is a set value gain from the camera
 			rightspeed = 59;
 			leftspeed = 47;
 		}
 		sleep(1000);
-		if(blueness < 0.888){
+		if(redness > 0.444 && greenness > 0.444){
 			rightSpeed=31;
 			leftSpeed=59; //robot::fMax
 		}
 		sleep(1000);
-		if (blueness > 1.5){
+		if (redness > 0.444 && greenness > 0.444){
 			blue = false;
 			end = true;
 		}
 	}
-	while (end == true){
+	while (end == true){ //Ajust later
 		if(redness < 0.444 && greenness < 0.4) { //x is a set value gain from the camera
 			rightspeed = 47;
 			leftspeed = 59;
