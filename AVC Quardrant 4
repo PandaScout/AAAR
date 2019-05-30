@@ -369,13 +369,7 @@ void robot::Q4(){
 		}
 	}
 	stop();
-	
-	//while(greenness < Z){
-		
-	
-	//Code to test quadrant 4. need values for X and Y from the real test.
 	}
-	//Code to test quadrant 4. need values for X and Y from the real test.
 	
 	int main(){
 	robot bob;
