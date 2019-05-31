@@ -29,6 +29,7 @@ void cameraDown();
 void cameraUp();
 void Q2();
 void Q3();
+void Q4();
 	
 private:
 int leftMotor = 1;
@@ -212,10 +213,6 @@ set_motors(leftMotor,leftSpeed);
 hardware_exchange();
 }
 
-
-
-void robot::Q4(){
-
 //rotation of robot. right: 47, 59
 //rotation of robot. left: 59,47
 //forward at max speed. 31, 59
@@ -223,22 +220,23 @@ void robot::Q4(){
 void robot::Q4(){
 	//Code for camera will be here to find the redness, greenness and blueness.
 	take_picture();
-	x = 0;
-	y = 0;
-	totred = 0;
-	totgreen = 0;
-	totblue = 0;
-	totint = 0;
-	redness = 0;
-	greenness = 0;
-	blueness = 0;
-	Boolean red = true;
-	Boolean green = false;
-	Boolean blue = false;
-	Boolean end = false
+	int y = 0;
+	int totred = 0;
+	int totgreen = 0;
+	int totblue = 0;
+	int totint = 0;
+	int redness = 0;
+	int greenness = 0;
+	int blueness = 0;
+	int rightspeed = 47;
+	int leftspeed = 59;
+	bool red = true;
+	bool green = false;
+	bool blue = false;
+	bool end = false;
 	
 		
-	for(x = 0; x < 320; x++)
+	for( int x = 0; x < 320; x++)
 	{
 		for(y = 0; y < 240; y++) 
 		{
@@ -274,7 +272,7 @@ void robot::Q4(){
 			leftspeed = 59;  //Right turn
 		}
 		sleep(1000);
-		else if (greenness > 0.544 && blueness > 0.544){
+		if (greenness > 0.544 && blueness > 0.544){
 			rightspeed = 59;
 			leftspeed = 47; //left turn
 		}
@@ -294,7 +292,7 @@ void robot::Q4(){
 			leftspeed = 59;
 		}
 		sleep(1000);
-		else if(redness > 0.544 && blueness > 0.544){
+		if (redness > 0.544 && blueness > 0.544){
 			rightSpeed=59;
 			leftSpeed=47; 
 		}
@@ -314,7 +312,7 @@ void robot::Q4(){
 			leftspeed = 47;
 		}
 		sleep(1000);
-		else if(redness > 0.544 && greenness > 0.544){
+		if(redness > 0.544 && greenness > 0.544){
 			rightSpeed=47;
 			leftSpeed=59; 
 		}
@@ -334,7 +332,7 @@ void robot::Q4(){
 			leftspeed = 47;
 		}
 		sleep(1000);
-		else if(blueness < 0.544){
+		if(blueness < 0.544){
 			rightSpeed=47;
 			leftSpeed=59; 
 		}
@@ -349,7 +347,6 @@ void robot::Q4(){
 			sleep(1000);
 		}
 	}
-	stop();
 	}
 	
 	int main(){
