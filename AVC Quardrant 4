@@ -355,7 +355,7 @@ void robot::Q4(){
 	int main(){
 	robot bob;
 	init(0);
-	bob.Q3();
+	//bob.Q3();
 	bob.getGate();
 	bob.Q4();
 	bob.Stop();
