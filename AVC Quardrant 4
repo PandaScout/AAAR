@@ -215,14 +215,6 @@ hardware_exchange();
 
 
 void robot::Q4(){
-	// C++ hopefuly
-#include <stdio.h>
-#include "E101.h"
-#include <unistd.h>
-#include <time.h>
-#include <math.h>
-#include <fstream>
-#include <iostream>
 
 //rotation of robot. right: 47, 59
 //rotation of robot. left: 59,47
