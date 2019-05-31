@@ -354,6 +354,7 @@ void robot::Q4(){
 	init(0);
 	//bob.Q3();
 	bob.getGate();
+	bob.cameraUp();
 	bob.Q4();
 	bob.Stop();
 	bob.setMotors();
